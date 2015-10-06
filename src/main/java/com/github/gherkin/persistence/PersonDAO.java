@@ -1,6 +1,6 @@
 package com.github.gherkin.persistence;
 
-import java.util.Collection;
+import java.util.List;
 
 import javax.inject.Singleton;
 
@@ -14,8 +14,8 @@ public class PersonDAO extends GenericDAO<PersonEntity> implements DAO<PersonEnt
 
 		return retrieve(PersonEntity.class, id);
 	}
-	
-	public Collection<PersonEntity> retrieveAll() {
+
+	public List<PersonEntity> retrieveAll() {
 
 		return retrieveAll("SELECT e FROM PersonEntity e", PersonEntity.class);	
 	}
