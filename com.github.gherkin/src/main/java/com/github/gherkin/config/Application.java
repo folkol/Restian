@@ -27,14 +27,8 @@ public class Application extends ResourceConfig {
 				
 				bind(PersonServiceImpl.class).to(PersonService.class).in(Singleton.class);
 				bind(ClubServiceImpl.class).to(ClubService.class).in(Singleton.class);
-//				bind(PersonDAOImpl.class).to(PersonDAO.class).in(Singleton.class);
-//				bind(ClubServiceImpl.class).to(ClubService.class).in(Singleton.class);
-//				bindAsContract(ClubDAO.class).in(Singleton.class);
-//				bindAsContract(ClubDAO.class).named("ClubDAO").to;
-//				.to(DAO<PersonEntity>.class).in(Singleton.class);
 				bind(PersonDAO.class).to(new TypeLiteral<DAO<PersonEntity>>(){});
 				bind(ClubDAO.class).to(new TypeLiteral<DAO<ClubEntity>>(){});
-//				bindAsContract(PersonDAO.class).named("PersonDAO").to(new TypeLiteral<DAO<PersonEntity>>(){}).in(Singleton.class);
 				
 			}		
 		});

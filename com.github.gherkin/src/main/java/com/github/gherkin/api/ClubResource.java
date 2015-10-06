@@ -11,8 +11,8 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 
-import com.github.gherkin.api.data.Club;
-import com.github.gherkin.api.data.Person;
+import com.github.gherkin.entity.ClubEntity;
+import com.github.gherkin.entity.PersonEntity;
 import com.github.gherkin.service.ClubService;
 
 @Path("/Clubs")
@@ -24,21 +24,35 @@ public class ClubResource {
 	@GET
 	@Produces(MediaType.APPLICATION_JSON)
 	@Path("{id}")
-	public Club getClub(@PathParam("id") Long id) {
+	public ClubEntity getClub(@PathParam("id") Long id) {
 		return clubService.retrieve(id);
+	}
+	
+	@GET
+	@Produces(MediaType.APPLICATION_JSON)
+	@Path("{id}/0")
+	public PersonEntity[] getClubsMember(@PathParam("id") Long id) {
+		ClubEntity club = clubService.retrieve(id);
+		Long[] memberIDs = club.getMembers();
+		
+		PersonEntity[] members = new PersonEntity[memberIDs.length];
+		
+		for(int i = 0; i < memberIDs.length; i++) 
+			members[i] = clubService.retrieveMember(memberIDs[i]);
+
+		return members;
 	}
 	
 	@POST
 	@Produces(MediaType.APPLICATION_JSON)
-	@Path("/post")
 	public void addClub(@QueryParam("name") String name, @QueryParam("id") Long id, @QueryParam("member") List<Long> memberIDs) {
 		
-		Club club = new Club();	
+		ClubEntity club = new ClubEntity();	
 		club.setName(name);
 		club.setId((long) 1);
 		
 		for(Long memberID : memberIDs) {
-			Person member = clubService.retrieveMember(memberID);
+			PersonEntity member = clubService.retrieveMember(memberID);
 			club.addMember(member);
 		}
 		

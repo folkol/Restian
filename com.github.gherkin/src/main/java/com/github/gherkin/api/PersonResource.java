@@ -12,7 +12,7 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 
-import com.github.gherkin.api.data.Person;
+import com.github.gherkin.entity.PersonEntity;
 import com.github.gherkin.service.PersonService;
 
 @Path("/Person")
@@ -23,14 +23,14 @@ public class PersonResource {
 	
 	@GET
 	@Produces(MediaType.APPLICATION_JSON)
-	public Collection<Person> respond() {
+	public Collection<PersonEntity> respond() {
 		return personService.retrieveAll();
 	}
 	
 	@POST
 	@Produces(MediaType.TEXT_PLAIN)
 	public String addPerson(@QueryParam("name") String name, @QueryParam("id") Long id) {
-		Person person = new Person();
+		PersonEntity person = new PersonEntity();
 		person.setId(id);
 		person.setName(name);
 		
@@ -43,7 +43,7 @@ public class PersonResource {
 	@Produces(MediaType.TEXT_PLAIN)
 	@Path("{id}")
 	public String deletePerson(@PathParam("id") Long id) {
-		Person person;
+		PersonEntity person;
 		person = personService.retrieve(id);
 		try {
 			personService.remove(person);
@@ -58,8 +58,7 @@ public class PersonResource {
 	@GET
 	@Produces(MediaType.APPLICATION_JSON)
 	@Path("{id}")
-//	@Produces(MediaType.TEXT_PLAIN)
-	public Person getPersonByID(@PathParam("id") Long id) {
+	public PersonEntity getPersonByID(@PathParam("id") Long id) {
 		return personService.retrieve(id);
 	}
 }

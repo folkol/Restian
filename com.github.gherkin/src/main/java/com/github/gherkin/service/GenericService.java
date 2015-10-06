@@ -1,34 +1,26 @@
 package com.github.gherkin.service;
 
-import javax.inject.Inject;
-import javax.inject.Singleton;
+import java.util.Collection;
 
-import com.github.gherkin.api.data.Person;
-import com.github.gherkin.entity.PersonEntity;
 import com.github.gherkin.persistence.DAO;
 
-public abstract class GenericService<T, T2> {
+public abstract class GenericService<T> {
+	protected DAO<T> dao;
 	
-	public T2 retrieve(DAO<T> Dao, Long id) {
-//		Person persson = new Person();
-//		persson.setId(1);
-//		persson.setName("" + id);
-//		return persson;
-		T entity = Dao.retrieve(id);
-//		if(entity == null) {
-//			Person persson = new Person();
-//			persson.setId((long) 1);
-//			persson.setName("null from DAO");
-//			return persson;
-//		}
-		T2 data = entityToData(entity);
-		return data;
+	public T retrieve(Long id) {
+		T entity = dao.retrieve(id);
+		
+		return entity;
+	}
+		
+	public void add(T entity) {
+		dao.add(entity);
+	}
+	
+	public Collection<T> retrieveAll() {
+		Collection<T> entityCollection = dao.retrieveAll();	
+		
+		return entityCollection;		
 	}
 
-	
-	protected abstract T2 entityToData(T entity);
-	protected abstract T dataToEntity(T2 data);
-
-	
-	public void add(T2 data, Long id) {}
 }

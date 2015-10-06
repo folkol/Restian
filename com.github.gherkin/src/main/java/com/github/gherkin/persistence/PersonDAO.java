@@ -15,8 +15,7 @@ public class PersonDAO extends GenericDAO<PersonEntity> implements DAO<PersonEnt
 	}
 	
 	public Collection<PersonEntity> retrieveAll() {
-		return retrieveAll("SELECT e FROM PersonEntity e", PersonEntity.class);
-		
+		return retrieveAll("SELECT e FROM PersonEntity e", PersonEntity.class);	
 	}
 	
 	public void remove(Long id) throws Exception {

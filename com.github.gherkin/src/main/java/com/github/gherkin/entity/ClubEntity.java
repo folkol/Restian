@@ -14,7 +14,8 @@ public class ClubEntity {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	private String name;
-	private String members;
+	private String members = "";
+	
 	
 	public Long getId() {
 		return id;
@@ -28,10 +29,20 @@ public class ClubEntity {
 	public void setName(String name) {
 		this.name = name;
 	}
-	public String getMembers() {
-		return members;
+	public Long[] getMembers() {
+		String[] idString = members.split(",");
+		Long[] ids = new Long[idString.length];
+		
+ 		for(int i = 0; i < idString.length; i++)
+ 			ids[i] = Long.parseLong(idString[i]);
+ 		
+ 		return ids;
 	}
 	public void setMembers(String members) {
 		this.members = members;
+	}
+	
+	public void addMember(PersonEntity member) {
+		members += member.getId() + ",";
 	}
 }
