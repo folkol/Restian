@@ -32,8 +32,7 @@ public class Application extends ResourceConfig {
 				
 			}		
 		});
-		
+
 		packages(true, "com.github.gherkin.api");
 	}
-
 }

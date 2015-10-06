@@ -14,22 +14,50 @@ public class ClubEntity {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	private String name;
-	private String members = "";
-	
-	
-	public Long getId() {
+	private String members;
+
+    public ClubEntity() {
+
+        this.members = "";
+    }
+
+    public ClubEntity(Long id, String name) {
+
+        this.id = id;
+        this.name = name;
+        this.members = "";
+    }
+
+    public ClubEntity(Long id, String name, Long[] memberIDs) {
+        
+        this.id = id;
+        this.name = name;
+        this.members = "";
+        setMembers(memberIDs);
+    }
+
+    public Long getId() {
+
 		return id;
 	}
+
 	public void setId(Long id) {
+
 		this.id = id;
 	}
+
 	public String getName() {
+
 		return name;
 	}
+
 	public void setName(String name) {
+
 		this.name = name;
 	}
+
 	public Long[] getMembers() {
+
 		String[] idString = members.split(",");
 		Long[] ids = new Long[idString.length];
 		
@@ -38,11 +66,15 @@ public class ClubEntity {
  		
  		return ids;
 	}
-	public void setMembers(String members) {
-		this.members = members;
+
+	public void setMembers(Long[] membersIDs) {
+
+		for(Long memberID : membersIDs)
+            members += memberID + ",";
 	}
 	
 	public void addMember(PersonEntity member) {
+
 		members += member.getId() + ",";
 	}
 }

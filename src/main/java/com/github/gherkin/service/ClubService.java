@@ -1,10 +1,11 @@
 package com.github.gherkin.service;
 
-import com.github.gherkin.entity.ClubEntity;
-import com.github.gherkin.entity.PersonEntity;
+import com.github.gherkin.api.data.Club;
+import com.github.gherkin.api.data.Person;
 
 public interface ClubService {
-	public ClubEntity retrieve(Long id);
-	public PersonEntity retrieveMember(Long id);
-	public void add(ClubEntity club);
+
+	Club retrieve(Long id);
+	Person retrieveMember(Long id);
+	void add(Club club);
 }
